@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${robotoSlab.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col overflow-hidden">
+      <body className="min-h-full flex flex-col">
         {children}
       </body>
     </html>

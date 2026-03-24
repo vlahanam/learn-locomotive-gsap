@@ -1,3 +1,5 @@
-.textSectionOneShadow {
-  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.9), 0px 0px 20px rgba(0, 0, 0, 0.5);
+.textSlideIntroRefShadow {
+  text-shadow:
+    0px 4px 10px rgba(0, 0, 0, 0.9),
+    0px 0px 20px rgba(0, 0, 0, 0.5);
 }
