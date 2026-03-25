@@ -1,8 +1,11 @@
 "use client";
 
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Demo() {
   const textTitleOne = ["Dùng", "Địch", "Đánh", "Địch"];
@@ -12,6 +15,11 @@ export default function Demo() {
   const img1Ref = useRef<HTMLDivElement>(null);
   const img2Ref = useRef<HTMLDivElement>(null);
   const img3Ref = useRef<HTMLDivElement>(null);
+
+  // Section 2 refs
+  const lineRef = useRef<HTMLDivElement>(null);
+  const starRef = useRef<HTMLDivElement>(null);
+  const section2Ref = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -132,6 +140,47 @@ export default function Demo() {
       setupHover(img1Ref, -2);
       setupHover(img2Ref, 1.5);
       setupHover(img3Ref, -1);
+
+      // --- Section 2: ScrollTrigger animation ---
+      // Set trạng thái ban đầu
+      gsap.set(lineRef.current, {
+        left: 40, // left-10 = 40px
+        width: "50%",
+      });
+      gsap.set(starRef.current, {
+        opacity: 0,
+        scale: 0,
+      });
+
+      // Timeline scroll
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section2Ref.current,
+          start: "top 70%",
+          end: "top 30%",
+          scrub: false,
+        },
+      });
+
+      // Bước 1: line mở rộng từ left-10/w-50% → left-0/w-full
+      tl.to(lineRef.current, {
+        left: 0,
+        width: "100%",
+        duration: 0.8,
+        ease: "power3.inOut",
+      });
+
+      // Bước 2: ngôi sao xuất hiện sau khi line mở xong
+      tl.to(
+        starRef.current,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          ease: "back.out(2)",
+        },
+        "-=0.1", // overlap nhẹ để mượt hơn
+      );
     }, containerRef);
 
     return () => ctx.revert();
@@ -144,9 +193,8 @@ export default function Demo() {
         <section className="mx-auto w-full px-4 sm:px-6 sm:max-w-150 md:px-8 md:max-w-180 lg:max-w-240 xl:max-w-310 min-h-screen flex flex-col">
           <div className="min-h-[200px]"></div>
 
-          {/* ── MOBILE: text rồi ảnh xếp dọc ── */}
+          {/* ── MOBILE ── */}
           <div className="flex flex-col gap-12 md:hidden">
-            {/* Text block */}
             <div ref={containerRef} className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 {textTitleOne.map((text, i) => (
@@ -170,9 +218,7 @@ export default function Demo() {
               </div>
             </div>
 
-            {/* Ảnh xếp dọc */}
             <div className="flex flex-col gap-16 items-center pb-12">
-              {/* Ảnh 1 */}
               <div
                 ref={img1Ref}
                 className="relative w-full max-w-[380px] h-[240px] cursor-pointer"
@@ -200,7 +246,6 @@ export default function Demo() {
                 </div>
               </div>
 
-              {/* Ảnh 2 */}
               <div
                 ref={img2Ref}
                 className="relative w-full max-w-[380px] h-[240px] cursor-pointer"
@@ -228,7 +273,6 @@ export default function Demo() {
                 </div>
               </div>
 
-              {/* Ảnh 3 */}
               <div
                 ref={img3Ref}
                 className="relative w-full max-w-[380px] h-[240px] cursor-pointer"
@@ -258,9 +302,8 @@ export default function Demo() {
             </div>
           </div>
 
-          {/* ── DESKTOP: layout chồng lấp như cũ ── */}
+          {/* ── DESKTOP ── */}
           <div className="relative hidden md:flex flex-row h-[500px]">
-            {/* Text */}
             <div ref={containerRef}>
               <div className="absolute z-1 left-[100px] flex flex-col gap-3.5">
                 {textTitleOne.map((text, i) => (
@@ -284,9 +327,7 @@ export default function Demo() {
               </div>
             </div>
 
-            {/* Ảnh chồng lấp */}
             <div className="relative w-full h-full">
-              {/* Ảnh 1 */}
               <div className="absolute top-[-50px] left-[35%] overflow-visible">
                 <div
                   ref={img1Ref}
@@ -316,7 +357,6 @@ export default function Demo() {
                 </div>
               </div>
 
-              {/* Ảnh 2 */}
               <div className="absolute top-[-20px] left-[70%] overflow-visible">
                 <div
                   ref={img2Ref}
@@ -346,7 +386,6 @@ export default function Demo() {
                 </div>
               </div>
 
-              {/* Ảnh 3 */}
               <div className="absolute top-[200px] left-[55%] overflow-visible">
                 <div
                   ref={img3Ref}
@@ -381,12 +420,22 @@ export default function Demo() {
       </div>
 
       {/* Section 2 */}
-      <div className="bg-[#EFE9E7] min-h-screen text-black overflow-x-hidden">
+      <div
+        ref={section2Ref}
+        className="bg-[#EFE9E7] min-h-screen text-black overflow-x-hidden"
+      >
         <section className="mx-auto w-full px-4 sm:px-6 sm:max-w-150 md:px-8 md:max-w-180 lg:max-w-240 xl:max-w-310 min-h-screen flex flex-col">
           <div className="mt-20"></div>
           <div className="relative w-full mx-auto">
-            <div className="absolute top-0 left-10 w-[50%] h-[1px] bg-black">
-              <div className="absolute -top-[20px] left-[455px] -translate-x-1/2 z-10">
+            {/* LINE NGANG + NGÔI SAO — dùng ref để GSAP điều khiển */}
+            <div
+              ref={lineRef}
+              className="absolute top-0 h-[1px] bg-black left-[40px] w-1/2"
+            >
+              <div
+                ref={starRef}
+                className="absolute -top-[20px] right-0 translate-x-1/2 z-10 opacity-0 scale-0"
+              >
                 <img
                   src="/svg/ngoi-sao.svg"
                   alt="ngoi-sao"
@@ -395,9 +444,9 @@ export default function Demo() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mt-6 gap-5">
               {/* LEFT */}
-              <div className="flex items-center gap-5">
+              <div className="w-1/2">
                 <img
                   src="https://i.pravatar.cc/100"
                   className="w-16 h-16 rounded-full"
@@ -410,13 +459,10 @@ export default function Demo() {
                 </div>
               </div>
 
-              <div className="relative flex flex-col items-center mx-10">
-                {/* Đường kẻ dọc */}
-                <div className="w-[1px] h-[120px] bg-black"></div>
-              </div>
+              <div className="w-[0.5px] h-1/2 bg-black"></div>
 
               {/* RIGHT */}
-              <div className="max-w-md text-gray-800 leading-relaxed">
+              <div className="leading-relaxed w-1/2">
                 Spaces Institute for Architecture and Design was founded in
                 2009...
               </div>
