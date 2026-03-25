@@ -1,11 +1,9 @@
-"use client";
-import LearnGsap from "../components/LearnGsap/LearnGsap";
+import Demo from "../components/Demo/Demo";
 
 export default function Home() {
   return (
     <main>
-      <LearnGsap />
-      {/* <LearnLocomotiveScroll /> */}
+      <Demo />
     </main>
   );
 }

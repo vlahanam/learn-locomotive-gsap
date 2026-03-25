@@ -1,0 +1,882 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.claude/
+  .env.example
+public/
+  images/
+    cat-ba.jpg
+    cau-vang.jpg
+    ha-noi.jpg
+    nhat-ban.jpg
+    nui-tuyet.jpg
+    suong-mu.jpg
+    thanh-pho-ho-chi-minh.jpg
+    vinh-ha-long.jpg
+  file.svg
+  globe.svg
+  next.svg
+  vercel.svg
+  window.svg
+src/
+  app/
+    favicon.ico
+    globals.css
+    layout.tsx
+    page.tsx
+  components/
+    LearnGsap/
+      LearnGsap.tsx
+      styles.module.css
+    LearnLocomotiveScroll/
+      LearnLocomotiveScroll.tsx
+      styles.module.css
+.commitlintrc.json
+.gitignore
+.repomixignore
+AGENTS.md
+CLAUDE.md
+eslint.config.mjs
+next.config.ts
+package.json
+pnpm-workspace.yaml
+postcss.config.mjs
+README.md
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".claude/.env.example">
+# Claude Code - Project-Level Environment Variables
+# Priority: process.env > .claude/.env > .claude/hooks/.env
+# Copy this file to .env and set your API keys and configuration
+
+# ============================================
+# Claude Code Notification Hooks
+# ============================================
+# Discord Webhook URL (for Discord notifications)
+# Get from: Server Settings → Integrations → Webhooks → New Webhook
+DISCORD_WEBHOOK_URL=
+
+# Telegram Bot Token (for Telegram notifications)
+# Get from: @BotFather in Telegram
+TELEGRAM_BOT_TOKEN=
+
+# Telegram Chat ID (your chat ID or group ID)
+# Get from: https://api.telegram.org/bot<BOT_TOKEN>/getUpdates
+TELEGRAM_CHAT_ID=
+
+# ============================================
+# Google Gemini API Key (for Gemini skills)
+# ============================================
+# Get your key at: https://aistudio.google.com/apikey
+GEMINI_API_KEY=your-gemini-api-key-here
+
+# ==== Vertex AI (Optional) ====
+# Uncomment to use Vertex AI instead of AI Studio
+# GEMINI_USE_VERTEX=true
+# VERTEX_PROJECT_ID=your-gcp-project-id
+# VERTEX_LOCATION=us-central1
+
+# Add other API keys and configuration as needed
+</file>
+
+<file path=".commitlintrc.json">
+{
+  "extends": ["@commitlint/config-conventional"],
+  "rules": {
+    "type-enum": [
+      2,
+      "always",
+      [
+        "build",
+        "chore",
+        "ci",
+        "docs",
+        "feat",
+        "fix",
+        "perf",
+        "refactor",
+        "revert",
+        "style",
+        "test"
+      ]
+    ],
+    "subject-case": [2, "never", ["sentence-case", "start-case", "pascal-case", "upper-case"]],
+    "subject-empty": [2, "never"],
+    "subject-full-stop": [2, "never", "."],
+    "header-max-length": [2, "always", 100],
+    "body-max-line-length": [1, "always", 300]
+  }
+}
+</file>
+
+<file path=".repomixignore">
+docs/*
+plans/*
+assets/*
+dist/*
+coverage/*
+build/*
+ios/*
+android/*
+tests/*
+__tests__/*
+__pycache__/*
+node_modules/*
+
+.opencode/*
+.claude/*
+.serena/*
+.pnpm-store/*
+.github/*
+.dart_tool/*
+.idea/*
+.husky/*
+.venv/*
+</file>
+
+<file path="public/file.svg">
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+</file>
+
+<file path="public/globe.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+</file>
+
+<file path="public/next.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+</file>
+
+<file path="public/vercel.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+</file>
+
+<file path="public/window.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+</file>
+
+<file path="src/app/globals.css">
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+</file>
+
+<file path="src/components/LearnLocomotiveScroll/LearnLocomotiveScroll.tsx">
+export default function LearnLocomotiveScroll() {
+  return (
+    <div>
+      <div className="h-screen flex">
+        <div
+          data-scroll
+          data-scroll-speed="2"
+          className="bg-blue-500 w-[30vw] h-[30vw]"
+        ></div>
+
+        <div
+          data-scroll
+          data-scroll-speed="1"
+          className="bg-amber-500 w-[30vw] h-[30vw]"
+        ></div>
+      </div>
+
+      <div className="h-screen bg-red-500"></div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/LearnLocomotiveScroll/styles.module.css">
+
+</file>
+
+<file path=".gitignore">
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+</file>
+
+<file path="AGENTS.md">
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
+</file>
+
+<file path="CLAUDE.md">
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Role & Responsibilities
+
+Your role is to analyze user requirements, delegate tasks to appropriate sub-agents, and ensure cohesive delivery of features that meet specifications and architectural standards.
+
+## Workflows
+
+- Primary workflow: `./.claude/workflows/primary-workflow.md`
+- Development rules: `./.claude/workflows/development-rules.md`
+- Orchestration protocols: `./.claude/workflows/orchestration-protocol.md`
+- Documentation management: `./.claude/workflows/documentation-management.md`
+- And other workflows: `./.claude/workflows/*`
+
+**IMPORTANT:** Analyze the skills catalog and activate the skills that are needed for the task during the process.
+**IMPORTANT:** You must follow strictly the development rules in `./.claude/workflows/development-rules.md` file.
+**IMPORTANT:** Before you plan or proceed any implementation, always read the `./README.md` file first to get context.
+**IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
+**IMPORTANT:** In reports, list any unresolved questions at the end, if any.
+**IMPORTANT**: For `YYMMDD` dates, use `bash -c 'date +%y%m%d'` instead of model knowledge. Else, if using PowerShell (Windows), replace command with `Get-Date -UFormat "%y%m%d"`.
+
+## Documentation Management
+
+We keep all important docs in `./docs` folder and keep updating them, structure like below:
+
+```
+./docs
+├── project-overview-pdr.md
+├── code-standards.md
+├── codebase-summary.md
+├── design-guidelines.md
+├── deployment-guide.md
+├── system-architecture.md
+└── project-roadmap.md
+```
+
+**IMPORTANT:** *MUST READ* and *MUST COMPLY* all *INSTRUCTIONS* in project `./CLAUDE.md`, especially *WORKFLOWS* section is *CRITICALLY IMPORTANT*, this rule is *MANDATORY. NON-NEGOTIABLE. NO EXCEPTIONS. MUST REMEMBER AT ALL TIMES!!!*
+</file>
+
+<file path="eslint.config.mjs">
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);
+
+export default eslintConfig;
+</file>
+
+<file path="next.config.ts">
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+</file>
+
+<file path="pnpm-workspace.yaml">
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+</file>
+
+<file path="postcss.config.mjs">
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+</file>
+
+<file path="README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+</file>
+
+<file path="src/app/layout.tsx">
+import type { Metadata } from "next";
+import { Geist, Geist_Mono, Roboto_Slab } from "next/font/google";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Create Next App",
+  description: "Generated by create next app",
+};
+
+export const robotoSlab = Roboto_Slab({
+  weight: ["400", "700"],
+  subsets: ["latin", "vietnamese"],
+});
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className={`${robotoSlab.className} h-full antialiased`}>
+      <body className="min-h-full flex flex-col">
+        {children}
+      </body>
+    </html>
+  );
+}
+</file>
+
+<file path="src/app/page.tsx">
+"use client";
+import LearnGsap from "../components/LearnGsap/LearnGsap";
+
+export default function Home() {
+  return (
+    <main>
+      <LearnGsap />
+      {/* <LearnLocomotiveScroll /> */}
+    </main>
+  );
+}
+</file>
+
+<file path="src/components/LearnGsap/LearnGsap.tsx">
+"use client";
+
+import gsap from "gsap";
+import Image from "next/image";
+import { useLayoutEffect, useRef } from "react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import styles from "./styles.module.css";
+
+export default function LearnLocomotiveGsap() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const textSlideIntroRef = useRef<HTMLDivElement>(null);
+  const slideIntroRef = useRef<HTMLDivElement>(null);
+
+  const slideContent1Ref = useRef<HTMLDivElement>(null);
+  const textContent1Ref = useRef<HTMLDivElement>(null);
+  const textContent2Ref = useRef<HTMLDivElement>(null);
+  const textContent3Ref = useRef<HTMLDivElement>(null);
+  const textContent4Ref = useRef<HTMLDivElement>(null);
+  const textContent5Ref = useRef<HTMLDivElement>(null);
+  const imageContent2Ref = useRef<HTMLDivElement>(null);
+  const imageContent3Ref = useRef<HTMLDivElement>(null);
+  const imageContent4Ref = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // --- Context 1: Slide Intro ---
+    const ctxIntro = gsap.context(() => {
+    gsap.fromTo(
+      textSlideIntroRef.current,
+      { x: -150, y: 50, scale: 0.5, rotation: -10, opacity: 0 },
+      {
+        x: 0, y: 0, scale: 1, rotation: 0, opacity: 1,
+        duration: 0.6,
+        ease: "back.out(1.7)",
+        onComplete: () => {
+          gsap.to(textSlideIntroRef.current, {
+            x: 150, y: -50, scale: 0.8, rotation: 10, opacity: 0,
+            ease: "power2.in",
+            scrollTrigger: {
+              trigger: slideIntroRef.current,
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        },
+      }
+    );
+  });
+
+    // --- Context 2: Slide Content 1 ---
+    const ctxContent1 = gsap.context(() => {
+      gsap.set(
+        [
+          imageContent2Ref.current,
+          imageContent3Ref.current,
+          imageContent4Ref.current,
+        ],
+        { scale: 0, rotation: 0, opacity: 0 },
+      );
+      gsap.set(
+        [
+          textContent1Ref.current,
+          textContent2Ref.current,
+          textContent3Ref.current,
+          textContent4Ref.current,
+          textContent5Ref.current,
+        ],
+        { x: -200, opacity: 0 },
+      );
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: slideContent1Ref.current,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      tl.to(textContent1Ref.current, {
+        x: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power3.out",
+      });
+
+      tl.to(
+        textContent2Ref.current,
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "+=0.1",
+      );
+      tl.to(
+        imageContent2Ref.current,
+        {
+          scale: 1,
+          rotation: 60,
+          opacity: 1,
+          duration: 0.8,
+          ease: "back.out(1.4)",
+        },
+        "<",
+      );
+
+      tl.to(
+        textContent3Ref.current,
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "+=0.1",
+      );
+      tl.to(
+        imageContent3Ref.current,
+        {
+          scale: 1,
+          rotation: 60,
+          opacity: 1,
+          duration: 0.8,
+          ease: "back.out(1.4)",
+        },
+        "<",
+      );
+
+      tl.to(
+        textContent4Ref.current,
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "+=0.1",
+      );
+      tl.to(
+        imageContent4Ref.current,
+        {
+          scale: 1,
+          rotation: 60,
+          opacity: 1,
+          duration: 0.8,
+          ease: "back.out(1.4)",
+        },
+        "<",
+      );
+
+      tl.to(
+        textContent5Ref.current,
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "+=0.1",
+      );
+    });
+
+    return () => {
+      ctxIntro.revert();
+      ctxContent1.revert();
+    };
+  }, []);
+
+  return (
+    // data-scroll-container là bắt buộc cho LocomotiveScroll
+    <div ref={wrapperRef} data-scroll-container>
+      {/* Slide Intro */}
+      <div
+        data-scroll-section
+        className="h-screen w-full bg-blue-500 flex items-center justify-center"
+      >
+        <div
+          ref={slideIntroRef}
+          className="w-[70vw] h-[40vw] bg-amber-500 relative"
+        >
+          <Image
+            src="/images/cat-ba.jpg"
+            alt="Cát Bà"
+            fill
+            className="object-cover"
+            loading="eager"
+          />
+          <div
+            ref={textSlideIntroRef}
+            className="absolute bottom-0 text-white p-4"
+          >
+            <div className="bg-amber-500 w-fit mb-10">
+              <p
+                className={`text-6xl font-bold ${styles.textSlideIntroRefShadow}`}
+              >
+                Dùng địch đánh địch
+              </p>
+            </div>
+            <div className="bg-amber-500 w-fit mb-10">
+              <p
+                className={`text-6xl font-bold ${styles.textSlideIntroRefShadow}`}
+              >
+                Đỉnh cao của chiến lược thâm nhập
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Slide content 1 */}
+      <div
+        data-scroll-section
+        ref={slideContent1Ref}
+        className="h-screen w-full bg-green-500 flex items-center justify-center"
+      >
+        <div className="w-[70vw] h-[40vw] bg-amber-500 relative">
+          <Image
+            src="/images/thanh-pho-ho-chi-minh.jpg"
+            alt="TP HCM"
+            fill
+            className="object-cover"
+            loading="eager"
+          />
+          <div className="absolute flex flex-col gap-10 left-10 top-30 text-white">
+            <div
+              ref={textContent1Ref}
+              className="text-6xl font-bold [-webkit-text-stroke:1px_black]"
+            >
+              Thế lực thù địch đã dùng
+            </div>
+            <div className="space-y-4 text-5xl md:text-6xl font-bold">
+              <div
+                ref={textContent2Ref}
+                className="relative w-fit [-webkit-text-stroke:1px_black]"
+              >
+                <span className="relative z-10">14 Tấn tiền giả</span>
+                <span className="absolute left-0 bottom-1 w-full h-3 bg-red-400/60 -z-0"></span>
+              </div>
+              <div
+                ref={textContent3Ref}
+                className="relative w-fit [-webkit-text-stroke:1px_black]"
+              >
+                <span className="relative z-10">Mật mã điện đài</span>
+                <span className="absolute left-0 bottom-1 w-full h-3 bg-yellow-400/60 -z-0"></span>
+              </div>
+              <div
+                ref={textContent4Ref}
+                className="relative w-fit [-webkit-text-stroke:1px_black]"
+              >
+                <span className="relative z-10">Hệ thống con dấu</span>
+                <span className="absolute left-0 bottom-1 w-full h-3 bg-blue-400/60 -z-0"></span>
+              </div>
+              <div
+                ref={textContent5Ref}
+                className="relative w-fit [-webkit-text-stroke:1px_black]"
+              >
+                <span className="relative z-10">Một kế hoạch tinh vi</span>
+                <span className="absolute left-0 bottom-1 w-full h-3 bg-black/30 -z-0"></span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              ref={imageContent2Ref}
+              className="absolute w-[300px] h-[300px] right-[100px] top-[10px] border-4 border-white shadow-xl"
+            >
+              <Image
+                src="/images/nhat-ban.jpg"
+                alt="Nhật Bản"
+                fill
+                className="object-cover"
+                loading="eager"
+              />
+            </div>
+            <div
+              ref={imageContent3Ref}
+              className="absolute w-[300px] h-[300px] right-[250px] top-[200px] border-4 border-white shadow-xl"
+            >
+              <Image
+                src="/images/nui-tuyet.jpg"
+                alt="Núi Tuyết"
+                fill
+                className="object-cover"
+                loading="eager"
+              />
+            </div>
+            <div
+              ref={imageContent4Ref}
+              className="absolute w-[300px] h-[300px] right-[80px] top-[400px] border-4 border-white shadow-xl"
+            >
+              <Image
+                src="/images/cau-vang.jpg"
+                alt="Cầu Vàng"
+                fill
+                className="object-cover"
+                loading="eager"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Slide 3 */}
+      <div
+        data-scroll-section
+        className="h-screen w-full bg-red-500 flex items-center justify-center"
+      >
+        <div className="w-[70vw] h-[40vw] bg-amber-500 relative">
+          <Image
+            src="/images/vinh-ha-long.jpg"
+            alt="Vinh Hạ Long"
+            fill
+            className="object-cover"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/LearnGsap/styles.module.css">
+.textSlideIntroRefShadow {
+  text-shadow:
+    0px 4px 10px rgba(0, 0, 0, 0.9),
+    0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "learn-locomotive-gsap",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "gsap": "^3.14.2",
+    "locomotive-scroll": "^5.0.1",
+    "next": "16.2.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+</file>
+
+</files>

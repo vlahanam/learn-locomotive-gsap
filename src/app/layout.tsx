@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto_Slab } from "next/font/google";
+import { Bitter, Roboto_Slab } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,6 +12,11 @@ export const robotoSlab = Roboto_Slab({
   subsets: ["latin", "vietnamese"],
 });
 
+export const bitter = Bitter({
+  weight: ["400", "700"],
+  subsets: ["latin", "vietnamese"],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -19,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${robotoSlab.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-hidden">
         {children}
       </body>
     </html>

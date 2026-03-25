@@ -6,7 +6,7 @@ import { useLayoutEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import styles from "./styles.module.css";
 
-export default function LearnLocomotiveGsap() {
+export default function LearnGsap() {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const textSlideIntroRef = useRef<HTMLDivElement>(null);
@@ -27,28 +27,36 @@ export default function LearnLocomotiveGsap() {
 
     // --- Context 1: Slide Intro ---
     const ctxIntro = gsap.context(() => {
-    gsap.fromTo(
-      textSlideIntroRef.current,
-      { x: -150, y: 50, scale: 0.5, rotation: -10, opacity: 0 },
-      {
-        x: 0, y: 0, scale: 1, rotation: 0, opacity: 1,
-        duration: 0.6,
-        ease: "back.out(1.7)",
-        onComplete: () => {
-          gsap.to(textSlideIntroRef.current, {
-            x: 150, y: -50, scale: 0.8, rotation: 10, opacity: 0,
-            ease: "power2.in",
-            scrollTrigger: {
-              trigger: slideIntroRef.current,
-              start: "top top",
-              end: "bottom top",
-              scrub: true,
-            },
-          });
+      gsap.fromTo(
+        textSlideIntroRef.current,
+        { x: -150, y: 50, scale: 0.5, rotation: -10, opacity: 0 },
+        {
+          x: 0,
+          y: 0,
+          scale: 1,
+          rotation: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          onComplete: () => {
+            gsap.to(textSlideIntroRef.current, {
+              x: 150,
+              y: -50,
+              scale: 0.8,
+              rotation: 10,
+              opacity: 0,
+              ease: "power2.in",
+              scrollTrigger: {
+                trigger: slideIntroRef.current,
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+              },
+            });
+          },
         },
-      }
-    );
-  });
+      );
+    });
 
     // --- Context 2: Slide Content 1 ---
     const ctxContent1 = gsap.context(() => {
@@ -177,7 +185,7 @@ export default function LearnLocomotiveGsap() {
       {/* Slide Intro */}
       <div
         data-scroll-section
-        className="h-screen w-full bg-blue-500 flex items-center justify-center"
+        className="h-screen w-full flex items-center justify-center"
       >
         <div
           ref={slideIntroRef}
@@ -187,6 +195,7 @@ export default function LearnLocomotiveGsap() {
             src="/images/cat-ba.jpg"
             alt="Cát Bà"
             fill
+            sizes="70vw"
             className="object-cover"
             loading="eager"
           />
@@ -216,13 +225,14 @@ export default function LearnLocomotiveGsap() {
       <div
         data-scroll-section
         ref={slideContent1Ref}
-        className="h-screen w-full bg-green-500 flex items-center justify-center"
+        className="h-screen w-full flex items-center justify-center"
       >
         <div className="w-[70vw] h-[40vw] bg-amber-500 relative">
           <Image
             src="/images/thanh-pho-ho-chi-minh.jpg"
             alt="TP HCM"
             fill
+            sizes="70vw"
             className="object-cover"
             loading="eager"
           />
@@ -273,6 +283,7 @@ export default function LearnLocomotiveGsap() {
                 src="/images/nhat-ban.jpg"
                 alt="Nhật Bản"
                 fill
+                sizes="300px"
                 className="object-cover"
                 loading="eager"
               />
@@ -285,6 +296,7 @@ export default function LearnLocomotiveGsap() {
                 src="/images/nui-tuyet.jpg"
                 alt="Núi Tuyết"
                 fill
+                sizes="300px"
                 className="object-cover"
                 loading="eager"
               />
@@ -297,6 +309,7 @@ export default function LearnLocomotiveGsap() {
                 src="/images/cau-vang.jpg"
                 alt="Cầu Vàng"
                 fill
+                sizes="300px"
                 className="object-cover"
                 loading="eager"
               />
@@ -308,13 +321,14 @@ export default function LearnLocomotiveGsap() {
       {/* Slide 3 */}
       <div
         data-scroll-section
-        className="h-screen w-full bg-red-500 flex items-center justify-center"
+        className="h-screen w-full flex items-center justify-center"
       >
         <div className="w-[70vw] h-[40vw] bg-amber-500 relative">
           <Image
             src="/images/vinh-ha-long.jpg"
             alt="Vinh Hạ Long"
             fill
+            sizes="70vw"
             className="object-cover"
             loading="eager"
           />
