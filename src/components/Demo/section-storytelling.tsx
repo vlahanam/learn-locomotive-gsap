@@ -165,7 +165,7 @@ export default function SectionStorytelling() {
             y: 0,
             opacity: 1,
             rotationX: 0,
-            duration: 3.5,
+            duration: 1.5,
             ease: "power4.out",
             stagger: 0.08,
             scrollTrigger: { trigger: heroTitleRef.current, start: "top 85%" },
@@ -182,7 +182,7 @@ export default function SectionStorytelling() {
           {
             y: 0,
             opacity: 1,
-            duration: 4,
+            duration: 1.5,
             delay: 1.2,
             ease: "power2.out",
             scrollTrigger: { trigger: heroSub, start: "top 85%" },
@@ -197,7 +197,7 @@ export default function SectionStorytelling() {
           { scaleX: 0 },
           {
             scaleX: 1,
-            duration: 3.5,
+            duration: 1.5,
             ease: "power2.inOut",
             scrollTrigger: { trigger: line, start: "top 85%" },
           },
@@ -214,7 +214,7 @@ export default function SectionStorytelling() {
             scale: 1,
             rotation: 0,
             opacity: 1,
-            duration: 3.5,
+            duration: 1.5,
             ease: "back.out(1.2)",
             scrollTrigger: { trigger: heroStar, start: "top 85%" },
           },
@@ -263,7 +263,7 @@ export default function SectionStorytelling() {
             {
               scale: 1,
               opacity: 1,
-              duration: 4,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch1, start: "top 80%" },
             },
@@ -283,7 +283,7 @@ export default function SectionStorytelling() {
             {
               x: 0,
               opacity: 1,
-              duration: 3.5,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch2, start: "top 75%" },
             },
@@ -298,7 +298,7 @@ export default function SectionStorytelling() {
               rotation: 0,
               opacity: 1,
               scale: 1,
-              duration: 4,
+              duration: 1.5,
               ease: "power3.out",
               scrollTrigger: { trigger: ch2, start: "top 72%" },
             },
@@ -336,7 +336,7 @@ export default function SectionStorytelling() {
               clipPath: "inset(0 0% 0 0)",
               scale: 1,
               filter: "blur(0px)",
-              duration: 4.5,
+              duration: 1.5,
               ease: "power2.inOut",
               scrollTrigger: { trigger: ch3, start: "top 72%" },
             },
@@ -349,7 +349,7 @@ export default function SectionStorytelling() {
             {
               x: 0,
               opacity: 1,
-              duration: 3.5,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch3, start: "top 70%" },
             },
@@ -402,7 +402,7 @@ export default function SectionStorytelling() {
             {
               opacity: 1,
               y: 0,
-              duration: 4,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch4, start: "top 55%" },
             },
@@ -424,6 +424,7 @@ export default function SectionStorytelling() {
             },
           );
         animTitleWords(ch4);
+        animBody(ch4);
       }
 
       // ═══ CHAPTER 5 (29-34) ═══
@@ -439,7 +440,7 @@ export default function SectionStorytelling() {
               rotation: 0,
               opacity: 1,
               scale: 1,
-              duration: 4,
+              duration: 1.5,
               ease: "power3.out",
               scrollTrigger: { trigger: ch5, start: "top 75%" },
             },
@@ -467,7 +468,7 @@ export default function SectionStorytelling() {
             {
               x: 0,
               opacity: 1,
-              duration: 3.5,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch5, start: "top 72%" },
             },
@@ -490,7 +491,7 @@ export default function SectionStorytelling() {
               rotation: 0,
               opacity: 1,
               scale: 1,
-              duration: 4.5,
+              duration: 1.5,
               ease: "power3.out",
               scrollTrigger: { trigger: ch6, start: "top 75%" },
             },
@@ -501,7 +502,7 @@ export default function SectionStorytelling() {
             { filter: "blur(10px)" },
             {
               filter: "blur(0px)",
-              duration: 3.5,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch6, start: "top 72%" },
             },
@@ -530,7 +531,7 @@ export default function SectionStorytelling() {
             {
               x: 0,
               opacity: 1,
-              duration: 3.5,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch6, start: "top 70%" },
             },
@@ -551,7 +552,7 @@ export default function SectionStorytelling() {
             {
               clipPath: "circle(100% at 50% 50%)",
               opacity: 1,
-              duration: 4.5,
+              duration: 1.5,
               ease: "power2.inOut",
               scrollTrigger: { trigger: ch7, start: "top 72%" },
             },
@@ -603,7 +604,7 @@ export default function SectionStorytelling() {
             { rotationY: 0 },
             {
               rotationY: -70,
-              duration: 4,
+              duration: 1.5,
               ease: "power2.inOut",
               scrollTrigger: {
                 trigger: ch8,
@@ -621,7 +622,7 @@ export default function SectionStorytelling() {
             { rotationY: 0 },
             {
               rotationY: 70,
-              duration: 4,
+              duration: 1.5,
               ease: "power2.inOut",
               scrollTrigger: {
                 trigger: ch8,
@@ -640,13 +641,11 @@ export default function SectionStorytelling() {
             {
               opacity: 1,
               scale: 1,
-              duration: 4,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch8, start: "top 55%" },
             },
           );
-        animTitleWords(ch8);
-        animBody(ch8);
       }
 
       // ═══ CHAPTER 9: SPIN ROTATE — image rotates 360° into view ═══
@@ -661,7 +660,7 @@ export default function SectionStorytelling() {
               rotation: 0,
               scale: 1,
               opacity: 1,
-              duration: 4.5,
+              duration: 1.5,
               ease: "power3.out",
               scrollTrigger: { trigger: ch9, start: "top 75%" },
             },
@@ -690,7 +689,7 @@ export default function SectionStorytelling() {
             {
               x: 0,
               opacity: 1,
-              duration: 3.5,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch9, start: "top 68%" },
             },
@@ -711,7 +710,7 @@ export default function SectionStorytelling() {
             { x: "0%" },
             {
               x: "-110%",
-              duration: 4,
+              duration: 1.5,
               ease: "power2.inOut",
               scrollTrigger: {
                 trigger: ch10,
@@ -729,7 +728,7 @@ export default function SectionStorytelling() {
             { x: "0%" },
             {
               x: "110%",
-              duration: 4,
+              duration: 1.5,
               ease: "power2.inOut",
               scrollTrigger: {
                 trigger: ch10,
@@ -749,13 +748,11 @@ export default function SectionStorytelling() {
               opacity: 1,
               y: 0,
               scale: 1,
-              duration: 4,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch10, start: "top 45%" },
             },
           );
-        animTitleWords(ch10);
-        animBody(ch10);
       }
 
       // ═══ CHAPTER 11 / CLOSING ═══
@@ -770,7 +767,7 @@ export default function SectionStorytelling() {
               y: 0,
               opacity: 1,
               scale: 1,
-              duration: 3.5,
+              duration: 1.5,
               ease: "power2.out",
               scrollTrigger: { trigger: ch11, start: "top 75%" },
             },
@@ -785,7 +782,7 @@ export default function SectionStorytelling() {
             {
               scale: 1,
               rotation: 0,
-              duration: 3.5,
+              duration: 1.5,
               ease: "back.out(1.2)",
               scrollTrigger: { trigger: star, start: "top 90%" },
             },
@@ -802,7 +799,7 @@ export default function SectionStorytelling() {
             {
               y: 0,
               opacity: 1,
-              duration: 2.5,
+              duration: 1.5,
               ease: "power2.out",
               stagger: 0.25,
               scrollTrigger: { trigger: parent, start: "top 80%" },
@@ -835,7 +832,7 @@ export default function SectionStorytelling() {
             { scaleX: 0 },
             {
               scaleX: 1,
-              duration: 2.5,
+              duration: 1.5,
               ease: "power2.inOut",
               scrollTrigger: { trigger: parent, start: "top 80%" },
             },
