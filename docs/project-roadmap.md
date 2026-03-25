@@ -8,61 +8,67 @@
 
 ## Phase 1: Foundation (Complete)
 
-Basic GSAP ScrollTrigger demos working in Next.js App Router.
+Basic GSAP ScrollTrigger + scroll storytelling working in Next.js App Router.
 
-- GSAP ScrollTrigger with `fromTo`, scrub, timelines
-- Staggered text reveals
-- Image reveals with rotation
-- Proper cleanup via `gsap.context().revert()`
-- Next.js Image optimization
-- Locomotive Scroll basic data-attribute demo (inactive, ready to enable)
+- Next.js App Router scaffold with GSAP + Locomotive Scroll
+- `Demo` orchestrator with `SectionContentReveal` + `SectionStorytelling`
+- Hero title: char-by-char 3D flip entrance
+- `SectionContentReveal`: polaroid image pop-in with bounce + hover effects
+- `SectionContentReveal`: pinned left column with scrolling images
+- `SectionStorytelling`: 10-chapter narrative with distinct per-chapter animation types
+  - Parallax inner, clip-path wipe, grayscale scrub, book-open (3D rotationY), spin-rotate, split-tear
+- `ImageLightbox`: GSAP morph open/close from source element rect
+- Shared helpers: `animTitleWords`, `animBody` (typewriter), `animDecLine`
+- Animation durations normalized to max 1.5s
+- ScrollTrigger bugs fixed in ch8/ch10 (removed premature helper calls)
+- `prefers-reduced-motion` guard
+- Proper GSAP cleanup via `gsap.context().revert()`
+- Next.js Image optimization for all assets
 
 ---
 
-## Phase 2: Combine Libraries (Next)
+## Phase 2: Scroll Library Integration (Next)
 
-Get GSAP and Locomotive Scroll working together.
+Get GSAP ScrollTrigger and Locomotive Scroll fully synchronized.
 
-- Initialize Locomotive Scroll instance in `LearnLocomotiveScroll`
-- Proxy native scroll to Locomotive Scroll for GSAP ScrollTrigger:
-  ```
-  ScrollTrigger.scrollerProxy(el, { ... })
-  ```
-- Sync ScrollTrigger refresh on Locomotive Scroll update
-- Add smooth-scroll to the GSAP demo
+- Assign Locomotive Scroll instance to ref for proper lifecycle management
+- Add `destroy()` call on page unmount
+- Implement `ScrollTrigger.scrollerProxy()` so GSAP reads Locomotive's virtual scroll position
+- Sync refresh: `scroll.on("scroll", ScrollTrigger.update)` + `ScrollTrigger.addEventListener("refresh", ...)`
+- Verify all existing chapter animations work correctly with proxied scroll
 
 ---
 
 ## Phase 3: More Animation Patterns
 
-Explore additional GSAP animation types.
+Additional GSAP techniques not yet demonstrated.
 
-- **Pin**: Fix a section in place while animating content inside it
-- **Parallax**: Different scroll speeds for layered elements
-- **Horizontal scroll**: Scroll section that moves left/right
-- **Batch**: Animate lists of cards on scroll (`ScrollTrigger.batch`)
-- **SplitText**: Character and word-level text animations (requires GSAP Club or manual split)
+- **Horizontal scroll**: section that moves left/right on vertical scroll (pin + x tween)
+- **ScrollTrigger.batch**: animate lists of cards entering viewport
+- **Counter**: scroll-triggered number count-up animation
+- **SVG path draw**: `strokeDashoffset` animation linked to scroll
+- **Magnetic cursor**: custom cursor that attracts to interactive elements
 
 ---
 
 ## Phase 4: Polish & Reusability
 
-Make the demos production-quality and extract reusable patterns.
+Make demos production-quality and extract reusable patterns.
 
-- Responsive animations (adapt values for mobile)
-- Custom `useGsapTimeline` hook to separate animation logic from JSX
-- Transition between demo pages without GSAP context leaks
-- Add unused images (`ha-noi.jpg`, `suong-mu.jpg`) to new slides
+- Responsive animation values (adapt offsets/scales for mobile breakpoints)
+- Extract `useGsapContext(scopeRef)` custom hook to separate animation logic from JSX
+- Use empty `section1/` and `section2/` subdirs for modular chapter components
+- Add currently unused images (`ha-noi.jpg`, `suong-mu.jpg`, `chess-game.jpg`, `propaganda-poster.jpg`, `radio-station.jpg`, `sai-gon-1968.jpg`) to new chapters or sections
+- Page transition that cleans up GSAP contexts without leaks
 
 ---
 
 ## Backlog (No Priority)
 
-- Custom cursor with magnetic button effect
-- SVG path draw animation
-- Scroll-based counter/number animation
-- Video background with scroll-controlled playback
 - Dark mode toggle with GSAP color transition
+- Video background with scroll-controlled playback
+- GSAP SplitText plugin (requires Club or manual implementation)
+- Reintroduce `LearnGsap` / `LearnLocomotiveScroll` as toggleable demo modes
 
 ---
 

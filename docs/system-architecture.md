@@ -8,7 +8,7 @@
 
 ## Overview
 
-A single-page Next.js application using the App Router. Renders one active demo component at a time. No backend, no API routes, no database.
+Single-page Next.js application using App Router. No backend, no API routes, no database. All content hardcoded in JSX; images are static assets.
 
 ---
 
@@ -16,140 +16,164 @@ A single-page Next.js application using the App Router. Renders one active demo 
 
 ```
 Browser
-  └── Next.js 16 (App Router, SSR/SSG)
-        ├── React 19 (client components)
+  └── Next.js 16 (App Router, SSR shell + client hydration)
+        ├── React 19 (all interactive components are "use client")
         ├── GSAP 3.14 + ScrollTrigger
-        ├── Locomotive Scroll 5 (inactive)
+        ├── Locomotive Scroll 5 (passive, no ScrollerProxy)
         ├── Tailwind CSS 4
-        └── next/font (Roboto Slab, Geist)
+        └── next/font (Roboto Slab)
 ```
 
 ---
 
 ## Rendering Model
 
-All animation-heavy components are client components (`"use client"`). The root `page.tsx` is also marked client because it directly imports `LearnGsap`.
-
-`layout.tsx` is a server component (default in App Router). It applies the font className and wraps content in `<html>` + `<body>`.
-
 ```
-layout.tsx (server)
-  └── page.tsx (client)
-        └── LearnGsap (client)
+layout.tsx          (server component — font + html/body wrapper)
+  └── page.tsx      (client component — LocomotiveScroll init + renders Demo)
+        └── Demo    (client — orchestrator)
+              ├── SectionContentReveal   (client — hero + pinned scroll)
+              └── SectionStorytelling    (client — 10-chapter narrative)
+                    └── ImageLightbox    (client — conditional overlay)
 ```
+
+`layout.tsx` is the only server component. All animation components are client-only because they use `useRef`, `useLayoutEffect`, and browser APIs (GSAP, ScrollTrigger, matchMedia).
 
 ---
 
 ## Component Architecture
 
 ```
-src/
-└── components/
-    ├── LearnGsap/           # Active: GSAP ScrollTrigger demo
-    └── LearnLocomotiveScroll/  # Inactive: Locomotive Scroll demo
+Demo/
+├── Demo.tsx                  # Renders SectionContentReveal then SectionStorytelling
+├── section-content-reveal.tsx # Self-contained: hero + pinned scroll, own GSAP contexts
+├── section-storytelling.tsx  # Self-contained: 10 chapters, single gsap.context
+├── image-lightbox.tsx        # Overlay portal, driven by SectionStorytelling state
+└── styles.module.css
 ```
 
-Only one demo component is rendered at a time. Switching is done manually in `page.tsx` by commenting/uncommenting the import.
+Each component owns its animation setup and cleanup. No shared animation state between components.
 
 ---
 
-## Animation Architecture (LearnGsap)
+## Animation Architecture
+
+### SectionContentReveal
+
+Five `useLayoutEffect` hooks, each a separate `gsap.context`:
 
 ```
-useLayoutEffect (runs after paint)
-  ├── gsap.registerPlugin(ScrollTrigger)
-  ├── gsap.context() → ctxIntro
-  │     ├── gsap.fromTo(textSlideIntroRef)   # entrance animation
-  │     └── gsap.to(textSlideIntroRef)       # scroll-out (scrub)
-  │           └── scrollTrigger on slideIntroRef
-  └── gsap.context() → ctxContent1
-        ├── gsap.set([images], initial state)
-        ├── gsap.set([texts], initial state)
-        └── gsap.timeline()
-              ├── scrollTrigger on slideContent1Ref
-              └── sequential + parallel tweens
-
-cleanup (return fn)
-  ├── ctxIntro.revert()
-  └── ctxContent1.revert()
+useLayoutEffect 1 — title stagger (immediate, no ScrollTrigger)
+useLayoutEffect 2 — image pop-in + hover listeners
+useLayoutEffect 3 — section2 horizontal line + star ornament
+useLayoutEffect 4 — section2 col entrance (y slide-up)
+useLayoutEffect 5 — section2 pin + image scroll (pin:true, scrub:1)
 ```
 
-**Two animation styles used**:
-1. **Scrub**: Text exits on scroll proportionally — no timeline, `scrub:true`
-2. **Toggle**: Content slide plays/reverses on enter/leave viewport — `toggleActions:"play none none reverse"`
+### SectionStorytelling
+
+Single `useLayoutEffect`, single `gsap.context(fn, sectionRef)`:
+
+```
+gsap.context
+  ├── Hero: char flip (rotationX), subtitle fade, decorative lines, star spin
+  ├── Ch1:  parallax inner + grayscale scrub
+  ├── Ch2:  slide text/image + parallax
+  ├── Ch3:  clip-path wipe
+  ├── Ch4:  full-bleed grayscale scrub + overlay
+  ├── Ch5:  slide-left + sepia scrub
+  ├── Ch6:  drop + blur-clear
+  ├── Ch7:  radial clip reveal + sepia scrub
+  ├── Ch8:  book-open (rotationY scrub, no text helpers)
+  ├── Ch9:  spin-rotate
+  ├── Ch10: split-tear (x scrub, no text helpers)
+  ├── Ch11: fade-up + end-star
+  └── shared: animTitleWords, animBody, animDecLine
+```
+
+### ImageLightbox
+
+Standalone GSAP timelines (no ScrollTrigger). Opens by morphing from `sourceRect` coordinates; closes with reverse. Uses `isAnimatingRef` guard and `tlRef.current?.kill()` to prevent overlap.
 
 ---
 
 ## Scroll Architecture
 
-### Current (LearnGsap)
+### Active
 
-Uses native browser scroll. GSAP ScrollTrigger reads native scroll position. `data-scroll-container` and `data-scroll-section` attributes exist on the DOM but are not active (no Locomotive Scroll instance initialized).
+Native browser scroll. GSAP ScrollTrigger reads `window.scrollY`.
 
-### Planned (LearnLocomotiveScroll)
+Locomotive Scroll v5 instance created in `page.tsx` `useEffect` (async import). Runs its own momentum layer but is **not** proxied to ScrollTrigger — both operate independently.
 
-Locomotive Scroll takes over scrolling by intercepting native scroll events. Requires:
-1. Instance initialized in `useEffect` on the container ref
-2. Integration with GSAP ScrollTrigger via `ScrollTrigger.scrollerProxy()` if combining both
+### Planned (not implemented)
+
+Full integration via `ScrollTrigger.scrollerProxy()` so ScrollTrigger reads Locomotive Scroll's virtual position instead of native scroll. Requires:
+
+1. `scrollerProxy` setup on container element
+2. `scroll.on("scroll", ScrollTrigger.update)`
+3. `ScrollTrigger.addEventListener("refresh", () => scroll.update())`
+
+---
+
+## Data Flow
+
+```
+Static images (public/images/, public/svg/)
+  └── next/image → WebP/AVIF + responsive srcset → browser
+
+STORY_CHAPTERS (module-level const array in section-storytelling.tsx)
+  └── mapped to chapter JSX + drives ImageLightbox data
+
+User scroll event
+  └── ScrollTrigger reads scroll position
+        └── GSAP tweens DOM element CSS properties → browser paint
+
+User clicks story image
+  └── SectionStorytelling setState (lightboxData, lightboxRect)
+        └── ImageLightbox renders → animateIn() via requestAnimationFrame
+```
 
 ---
 
 ## Asset Pipeline
 
-Images served from `public/images/` via Next.js static serving. `next/image` provides:
-- Automatic WebP/AVIF conversion
-- Responsive srcset generation
-- Lazy loading (overridden with `loading="eager"` for above-fold images)
-- Layout shift prevention via placeholder
+Images served from `public/images/` via Next.js static serving. `next/image` provides automatic WebP/AVIF conversion, responsive srcset, and layout shift prevention. `loading="eager"` used for above-the-fold images; `priority` for pinned section images.
 
 ---
 
 ## Styling Architecture
 
 ```
-Tailwind CSS v4 (utility classes)
-  ├── globals.css       # @import "tailwindcss", CSS variables
-  └── styles.module.css # per-component scoped CSS (textSlideIntroRefShadow)
-```
+Tailwind CSS v4
+  ├── globals.css          @import "tailwindcss" + CSS variables
+  └── styles.module.css    per-component scoped CSS (minimal use)
 
-No global component library. All layout done with Tailwind utilities inline.
+No global component library. Layout via Tailwind utilities inline.
+Responsive breakpoints: sm (640) / md (768) / lg (1024) / xl (1280).
+```
 
 ---
 
 ## Font Architecture
 
-Roboto Slab loaded via `next/font/google` in `layout.tsx`. Applied as `className` on `<html>`. Includes `vietnamese` subset for correct diacritic rendering.
-
-Geist and Geist_Mono are imported but not applied to any element.
-
----
-
-## Data Flow
-
-No external data. All content is hardcoded in JSX. Images are static assets.
-
-```
-Static images (public/images/)
-  └── next/image → optimized delivery → browser
-
-GSAP animations
-  └── read DOM refs → animate CSS properties → browser paint
-```
+Roboto Slab loaded via `next/font/google` in `layout.tsx`. Applied as `className` on `<html>`. Includes `vietnamese` subset for diacritic rendering. Geist/Geist_Mono imported but not applied.
 
 ---
 
 ## File Serving
 
 ```
-/               → src/app/page.tsx → renders LearnGsap
-/images/*       → public/images/* (static)
-/_next/*        → Next.js compiled assets
+/          → src/app/page.tsx → renders Demo
+/images/*  → public/images/* (static)
+/svg/*     → public/svg/* (static)
+/_next/*   → Next.js compiled assets
 ```
 
 ---
 
 ## Known Architectural Notes
 
-- `wrapperRef` on the outer div uses `data-scroll-container` — this is a Locomotive Scroll attribute left in place even though Locomotive Scroll is inactive. It has no effect on GSAP animations.
-- `data-scroll-section` on each slide div is likewise Locomotive Scroll markup, inert without an active instance.
-- No shared state between components — each demo is fully self-contained.
+- Locomotive Scroll instance in `page.tsx` is never assigned to a variable — no `destroy()` called on unmount. Acceptable for a single-page learning project.
+- `section1/` and `section2/` subdirs inside `Demo/` are empty placeholders, not yet used.
+- Legacy components (`LearnGsap`, `LearnLocomotiveScroll`) remain in `src/components/` but are not imported anywhere.
+- No shared animation state or context between components — each manages its own `gsap.context` lifecycle.
