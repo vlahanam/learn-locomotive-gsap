@@ -1,116 +1,51 @@
+// ADemoSwiper.tsx
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard } from "swiper/modules";
+import { useState } from "react";
 import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
 
-import Image from "next/image";
-import { useRef, useLayoutEffect } from "react";
-import gsap from "gsap";
+import SlideOne from "./slides/Slide1";
+import SlideTwo from "./slides/Slide2";
+import SlideThree from "./slides/Slide3";
 
 export default function ADemoSwiper() {
-  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const ctxRefs = useRef<gsap.Context[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // 🎯 Tạo animation cho từng slide
-  const createAnimation = (index: number) => {
-    const el = slideRefs.current[index];
-    if (!el) return;
-
-    // 🔥 tạo context riêng cho từng slide
-    const ctx = gsap.context(() => {
-      const text = el.querySelector(".text");
-
-      switch (index) {
-        case 0:
-          gsap.fromTo(
-            text,
-            { y: 100, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
-          );
-          break;
-
-        case 1:
-          gsap.fromTo(
-            text,
-            { x: -200, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
-          );
-          break;
-
-        case 2:
-          gsap.fromTo(
-            text,
-            { scale: 0.5, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 0.8, ease: "power3.out" }
-          );
-          break;
-      }
-    }, el);
-
-    ctxRefs.current[index] = ctx;
-  };
-
-  // 🎯 Khi slide change
   const handleSlideChange = (swiper: SwiperType) => {
-    const current = swiper.activeIndex;
-    const prev = swiper.previousIndex;
-
-    // ❌ kill animation slide cũ
-    if (ctxRefs.current[prev]) {
-      ctxRefs.current[prev].revert();
-    }
-
-    // ✅ tạo lại animation slide mới
-    createAnimation(current);
+    setActiveIndex(swiper.activeIndex);
   };
-
-  // 🎯 init slide đầu tiên
-  useLayoutEffect(() => {
-    createAnimation(0);
-
-    return () => {
-      // cleanup toàn bộ khi unmount
-      ctxRefs.current.forEach((ctx) => ctx?.revert());
-    };
-  }, []);
 
   return (
     <Swiper
       modules={[Keyboard]}
-      keyboard={{ enabled: true }}
+      keyboard={{
+        enabled: typeof window !== "undefined" && window.innerWidth >= 1024,
+      }}
       onSlideChange={handleSlideChange}
       slidesPerView={1}
-      className="w-full h-screen"
+      simulateTouch={true}
+      grabCursor={true}
+      className="
+    w-full 
+    h-[100svh] 
+    md:h-screen
+  "
     >
-      {[1, 2, 3].map((item, index) => (
-        <SwiperSlide key={index}>
-          <div
-            ref={(el) => {
-              slideRefs.current[index] = el;
-            }}
-            className="relative h-screen flex items-center justify-center"
-          >
-            {/* IMAGE */}
-            <div className="relative w-[70%] h-[70vh]">
-              <Image
-                src="/images/ha-noi.jpg"
-                alt={`slide-${item}`}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
+      <SwiperSlide>
+        <SlideOne isActive={activeIndex === 0} />
+      </SwiperSlide>
 
-            {/* TEXT */}
-            <div className="text absolute text-white text-5xl font-bold">
-              Slide {item}
-            </div>
-          </div>
-        </SwiperSlide>
-      ))}
+      <SwiperSlide>
+        <SlideTwo isActive={activeIndex === 1} />
+      </SwiperSlide>
+
+      <SwiperSlide>
+        <SlideThree isActive={activeIndex === 2} />
+      </SwiperSlide>
     </Swiper>
   );
 }
