@@ -10,60 +10,23 @@ type Props = {
 };
 
 export default function SlideTwo({ isActive }: Props) {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
-    if (!ref.current || !isActive) return;
+    if (!containerRef.current || !isActive) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".text",
-        { x: -200, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.8 },
-      );
-    }, ref);
+    const ctx = gsap.context(() => {}, containerRef);
 
     return () => ctx.revert();
   }, [isActive]);
 
   return (
     <div
-      ref={ref}
-      className="relative h-screen flex items-center justify-center"
+      ref={containerRef}
+      className="relative h-[100svh] md:h-screen flex items-center justify-center px-4 text-black"
     >
-      <div
-        className="
-      relative 
-      w-full 
-      h-[40vh] 
-      sm:h-[50vh] 
-      md:h-[60vh] 
-      lg:w-[70%] 
-      lg:h-[70vh]
-    "
-      >
-        <Image
-          src="/images/ha-noi.jpg"
-          alt="slide-3"
-          fill
-          className="object-cover rounded-xl"
-          loading="eager"
-        />
-      </div>
-
-      <div
-        className="
-      text 
-      absolute 
-      text-white 
-      font-bold 
-      text-2xl 
-      sm:text-3xl 
-      md:text-4xl 
-      lg:text-5xl
-    "
-      >
-        Slide 2
+      <div className="relative w-full h-[65vh] md:h-[70vh] lg:w-[70%] perspective-[1000px]">
+        
       </div>
     </div>
   );
