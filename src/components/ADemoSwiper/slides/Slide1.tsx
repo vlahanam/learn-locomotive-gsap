@@ -46,6 +46,8 @@ function PinImage({ src }: { src: string }) {
       z: 120,
       duration: 0.3,
     });
+    const wrapper = ref.current?.closest(".pin-image") as HTMLElement;
+    if (wrapper) wrapper.style.zIndex = "10";
   };
 
   const handleMouseLeave = () => {
@@ -59,6 +61,8 @@ function PinImage({ src }: { src: string }) {
       duration: 0.6,
       ease: "elastic.out(1, 0.5)",
     });
+    const wrapper = ref.current?.closest(".pin-image") as HTMLElement;
+    if (wrapper) wrapper.style.zIndex = "0";
   };
 
   return (

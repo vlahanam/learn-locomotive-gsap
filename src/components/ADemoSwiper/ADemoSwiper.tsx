@@ -11,6 +11,7 @@ import "swiper/css";
 import SlideOne from "./slides/Slide1";
 import SlideTwo from "./slides/Slide2";
 import SlideThree from "./slides/Slide3";
+import SlideFour from "./slides/Silde4";
 
 export default function ADemoSwiper() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -35,7 +36,7 @@ export default function ADemoSwiper() {
     md:h-screen
   "
     >
-      <SwiperSlide>
+      {/* <SwiperSlide>
         <SlideOne isActive={activeIndex === 0} />
       </SwiperSlide>
 
@@ -45,6 +46,10 @@ export default function ADemoSwiper() {
 
       <SwiperSlide>
         <SlideThree isActive={activeIndex === 2} />
+      </SwiperSlide> */}
+
+      <SwiperSlide>
+        <SlideFour isActive={activeIndex === 0} />
       </SwiperSlide>
     </Swiper>
   );
