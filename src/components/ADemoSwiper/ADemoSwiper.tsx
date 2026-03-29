@@ -36,7 +36,7 @@ export default function ADemoSwiper() {
     md:h-screen
   "
     >
-      {/* <SwiperSlide>
+      <SwiperSlide>
         <SlideOne isActive={activeIndex === 0} />
       </SwiperSlide>
 
@@ -46,10 +46,10 @@ export default function ADemoSwiper() {
 
       <SwiperSlide>
         <SlideThree isActive={activeIndex === 2} />
-      </SwiperSlide> */}
+      </SwiperSlide>
 
       <SwiperSlide>
-        <SlideFour isActive={activeIndex === 0} />
+        <SlideFour isActive={activeIndex === 3} />
       </SwiperSlide>
     </Swiper>
   );
